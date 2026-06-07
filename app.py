@@ -19,8 +19,7 @@ with open("model.pkl", "rb") as f:
 with open("top_features.json", "r") as f:
     top_features = json.load(f)
 
-df = pd.read_parquet("data/cleaned_data.parquet")
-all_feature_cols = [col for col in df.columns if col not in ['Label', 'Label_Binary']]
+
 
 if "prediction" not in st.session_state:
     st.session_state.prediction = None
@@ -332,7 +331,7 @@ if reset:
     st.rerun()
 
 if analyse:
-    input_data = pd.DataFrame([[0.0] * len(all_feature_cols)], columns=all_feature_cols)
+    input_data = pd.DataFrame([[0.0] * len(top_features)], columns=top_features)
     input_data['Avg Bwd Segment Size'] = avg_bwd_seg
     input_data['Bwd Packet Length Std'] = bwd_pkt_std
     input_data['Bwd Packet Length Mean'] = bwd_pkt_mean
